@@ -30,6 +30,16 @@ async function run() {
             res.send(users)
         })
 
+        // post api create data from react
+        app.post('/bikes', async (req, res) => {
+            const newBike = req.body;
+            // console.log(newBike);
+            console.log('adding Bike', newBike);
+            const result = await bikes.insertOne(newBike);
+
+            res.send(result)
+        })
+
     }
     finally {
 
