@@ -22,7 +22,13 @@ async function run() {
         const bikes = client.db('bikedb').collection('bikes');
         console.log('bikedb conected');
 
-
+        // get data 
+        app.get('/bikes', async (req, res) => {
+            const query = {};
+            const cursor = bikes.find(query);
+            const users = await cursor.toArray();
+            res.send(users)
+        })
 
     }
     finally {
