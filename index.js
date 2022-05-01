@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 const port = 5000;
@@ -38,6 +38,23 @@ async function run() {
             const result = await bikes.insertOne(newBike);
 
             res.send(result)
+        })
+
+        // delete one bike api 
+        app.delete('/bikes/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bikes.deleteOne(query);
+            res.send(result)
+        })
+
+
+        // single data api 
+        app.get('/bikes/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const singleBike = await bikes.findOne(query)
+            res.send(singleBike)
         })
 
     }
