@@ -57,6 +57,19 @@ async function run() {
             res.send(singleBike)
         })
 
+        // update api for decrement quantity
+        app.put('/bikes/:id', async (req, res) => {
+            const id = req.params.id;
+            const filterOne = { _id: ObjectId(id) };
+            const option = { upsert: true };
+            const updateDoc = {
+                $inc: { quantity: - 1 }
+            }
+            const result = await bikes.updateOne(filterOne, updateDoc, option);
+            console.log(result)
+            res.send(result)
+        })
+
     }
     finally {
 
